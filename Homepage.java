@@ -1,13 +1,8 @@
 import java.applet.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.Graphics. *;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
 import java.util.Random;
 
 
@@ -18,6 +13,8 @@ public class Homepage extends Applet implements ActionListener{
 	Button tester;
 	Button interviewer;
 	Button home;
+	Button[] buttonList;
+	Button backToList;
 	
 	JTextArea text;
 	JTextField field;
@@ -58,7 +55,7 @@ public class Homepage extends Applet implements ActionListener{
     	//Set title
     	Frame title = (Frame)this.getParent().getParent();
         title.setTitle("Boost");
-
+        
     	//Set window size and color
     	this.setSize(new Dimension(1200,1200));
     	this.setBackground(Color.WHITE);
@@ -68,6 +65,14 @@ public class Homepage extends Applet implements ActionListener{
         listQuestion = new Button("Choose a Question");
         about = new Button("About Stereotype Threat");
         home = new Button("Home");
+        backToList = new Button("Back to List");
+        buttonList = new Button[29];
+        for(int i = 1; i < 30; i++) {
+        	String s = Integer.toString(i);
+        	Button temp = new Button(s);
+        	buttonList[i-1] = temp;
+        	temp.addActionListener(this);
+        }
         
         //Initialize text box (empty)
         text = new JTextArea("", 30, 70);
@@ -88,6 +93,7 @@ public class Homepage extends Applet implements ActionListener{
         listQuestion.addActionListener(this);
         about.addActionListener(this);
         home.addActionListener(this);
+        backToList.addActionListener(this);
      
         repaint();
     }
@@ -96,8 +102,8 @@ public class Homepage extends Applet implements ActionListener{
     
     //Check if button was clicked, react
     public void actionPerformed(ActionEvent e) {
-    	
-		if (e.getSource() == listQuestion) {
+		if ((e.getSource() == listQuestion) || (e.getSource() == backToList)) {
+			add(backToList);
 			this.listButtons();
 		}
 		else if (e.getSource() == randomQuestion) {
@@ -110,10 +116,7 @@ public class Homepage extends Applet implements ActionListener{
 			this.randomInterviewQuestion();
 		}
 		else if (e.getSource() == home) {
-			Component[] temp = getComponents();
-			for(int i = 0; i < temp.length; i++) {
-				remove(temp[i]);
-			}
+			deleteButtons();
 			text.setText(null);
 			add(randomQuestion);
 	        add(listQuestion);
@@ -142,9 +145,32 @@ public class Homepage extends Applet implements ActionListener{
 			+ "kinds of questions before stressful situations, particularly \n"
 			+ "before tests and interviews.");
 		}
+		else {
+			String[] numbers = new String[29];
+	    	for(int i = 1; i < 30; i++) {
+	    		numbers[i-1] = Integer.toString(i);
+	    	}
+	    	for(int i = 0; i < 29; i++) {
+	    		if(e.getSource() == buttonList[i]) {
+	    			// general questions
+	    			if(i < 12) {
+	    				text.setText(generalQuestions[i]);
+	    			}
+	    			// interview questions
+	    			else if (i < 20) {
+	    				text.setText(interviewQuestions[i%12]);
+	    			}
+	    			// test questions
+	    			else {
+	    				text.setText(testQuestions[i%20]);
+	    			}
+	    		}
+	    	}
+		}
 		
-		//Repaint the 
+		//Repaint
 		repaint();
+		validate();
 	}
     
     public void listButtons() {
@@ -153,10 +179,8 @@ public class Homepage extends Applet implements ActionListener{
         remove(about);
         remove(text);
         remove(field);
-        for(int i = 1; i < 30; i++) {
-        	String s = Integer.toString(i);
-        	Button temp = new Button(s);
-        	add(temp);
+        for(int i = 0; i < 29; i++) {
+        	add(buttonList[i]);
         }
         text.setText(null);
         for(int i = 1; i < 13; i++) {
@@ -179,15 +203,12 @@ public class Homepage extends Applet implements ActionListener{
     }
     
     public void randButtons() {
-    	remove(randomQuestion);
-        remove(listQuestion);
-        remove(about);
-        remove(text);
-        remove(field);
+    	deleteButtons();
         tester = new Button("Test Questions");
         interviewer = new Button("Interview Questions");
         add(tester);
         add(interviewer);
+        add(home);
         add(text);
         add(field);
         tester.addActionListener(this);
@@ -234,6 +255,14 @@ public class Homepage extends Applet implements ActionListener{
     		text.setText(generalQuestions[n- interviewQuestions.length]);
     	}
     	
+    }
+    
+    public void deleteButtons() {
+    	Component[] temp = getComponents();
+		for(int i = 0; i < temp.length; i++) {
+			remove(temp[i]);
+		}
+		repaint();
     }
 
     
