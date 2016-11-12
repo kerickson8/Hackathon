@@ -1,5 +1,4 @@
 import java.applet.*;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +15,8 @@ public class Homepage extends Applet implements ActionListener{
 	Button[] buttonList;
 	Button backToList;
 	
-	JTextArea text;
-	JTextField field;
+	TextArea text;
+	TextField field;
 	
 	String[] stringArray;
 	String[] generalQuestions = { "Tell us about a secret skill, talent, or passion of yours.",
@@ -57,8 +56,9 @@ public class Homepage extends Applet implements ActionListener{
         title.setTitle("Boost");
         
     	//Set window size and color
-    	this.setSize(new Dimension(1200,1200));
-    	this.setBackground(Color.WHITE);
+    	this.setSize(new Dimension(1000,500));
+    	Color d = new Color(174, 239, 211);
+    	this.setBackground(d);
     
     	// Create buttons
     	randomQuestion = new Button("Get a Random Question");
@@ -75,9 +75,9 @@ public class Homepage extends Applet implements ActionListener{
         }
         
         //Initialize text box (empty)
-        text = new JTextArea("", 30, 70);
+        text = new TextArea("", 10, 80);
         text.setEditable(false);
-        field = new JTextField("", 60);
+        field = new TextField("", 60);
         Color c = new Color (237, 237, 237);
         field.setBackground(c);
         // Add buttons to the home screen
@@ -87,6 +87,9 @@ public class Homepage extends Applet implements ActionListener{
         add(home);
         add(text);
         add(field);
+        
+        text.append("Welcome to Boost, an applet made to combat steteotype threat! \n"
+        		+ "To start, click on any of the above buttons, and answer questions in the textbox below");
 
         // Initialize what each thing will do
         randomQuestion.addActionListener(this);
@@ -111,37 +114,40 @@ public class Homepage extends Applet implements ActionListener{
 		}
 		else if (e.getSource() == tester) {
 			this.randomTestQuestion();
+			field.setText("");
 		}
 		else if (e.getSource() == interviewer) {
 			this.randomInterviewQuestion();
+			field.setText("");
 		}
 		else if (e.getSource() == home) {
 			deleteButtons();
-			text.setText(null);
 			add(randomQuestion);
 	        add(listQuestion);
 	        add(about);
 	        add(home);
 	        add(text);
 	        add(field);
+	        text.setText("");
+	        field.setText("");
 	        repaint();
 		}
 		else if (e.getSource() == about) {
-			text.setText("    Stereotype threat occurs when a person confirms a \n"
+			text.setText("    Stereotype threat occurs when a person confirms a "
 			+ "stereotype of one’s group. This can occur during \n"
-			+ "stressful situations like an interview or a test, \n"
+			+ "stressful situations like an interview or a test, "
 			+ "where one can doubt their abilities due to a certain \n"
-			+ "aspect of one’s identity. A concrete example may be women \n"
+			+ "aspect of one’s identity. A concrete example may be women "
 			+ "applying for engineering internships, where an indication \n"
-			+ "of their gender on the application may create a subconscious \n"
+			+ "of their gender on the application may create a subconscious "
 			+ "stereotype threat.\n"
-			+ "   A proven way to combat stereotype threat is to have \n"
+			+ "   A proven way to combat stereotype threat is to have "
 			+ "people write down their strengths and past accomplishments \n"
-			+ "so that they do not doubt their abilities. Even simple \n"
+			+ "so that they do not doubt their abilities. Even simple "
 			+ "questions like asking about a special talent or a proud \n"
-			+ "moment in their life has shown to decrease the effect of \n"
+			+ "moment in their life has shown to decrease the effect of "
 			+ "stereotype threat significantly. This applet is designed \n"
-			+ "to help combat stereotype threat by asking the user these \n"
+			+ "to help combat stereotype threat by asking the user these "
 			+ "kinds of questions before stressful situations, particularly \n"
 			+ "before tests and interviews.");
 		}
@@ -183,22 +189,25 @@ public class Homepage extends Applet implements ActionListener{
         	add(buttonList[i]);
         }
         text.setText(null);
+        text.append("Select the button for what question you want to answer \n \n");
+        text.append("General Questions: \n");
         for(int i = 1; i < 13; i++) {
         	text.append(Integer.toString(i) + ": ");
         	text.append(generalQuestions[i - 1] + "\n");
         }
-        text.append("\n");
+        text.append("\nInterview Questions: \n");
         for(int i = 13; i < 21; i++) {
         	text.append(Integer.toString(i) + ": ");
         	text.append(interviewQuestions[i - 13] + "\n");
         }
-        text.append("\n");
+        text.append("\nTest Questions: \n");
         for(int i = 21; i < 30; i++) {
         	text.append(Integer.toString(i) + ": ");
         	text.append(testQuestions[i - 21] + "\n");
         }
         add(text);
         add(field);
+        field.setText("");
         repaint();
     }
     
