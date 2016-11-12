@@ -8,9 +8,11 @@ html, body {
 	width: 100%;
 }
 
+
+
 body {
-	align-items: center;
-  background-color: #FFF;
+	
+  	background-color: #D9FFFC;
 	display: flex;
 	font-family: 'Raleway', sans-serif;
 	flex-direction: column;
@@ -21,8 +23,7 @@ body {
 div.container {
 	align-items: center;
 	align-self: center;
-	background: url('https://s3.amazonaws.com/codecademy-content/courses/web-101/unit-1/01/background.jpg') center center;
-	border-radius: 100%;
+	
 	display: flex;
 	flex-direction: column;
 	min-height: 800px;
@@ -31,13 +32,15 @@ div.container {
 }
 
 h1 {
-  color: #fff;
-  font-family: 'Playfair Display', serif;
-  font-size: 52px;
-  font-weight: 900;
-  line-height: 46px;
-  margin: 0 0 60px 0;
+  color: #ffffff; 
+  font-size: 54px; 
+  font-weight: 300; 
+  line-height: 100px; 
+  margin: 0 0 0px;
+
+  letter-spacing: -1px; 
   text-align: center;
+  margin: 0 0 60px 0;
   text-shadow: 0px 2px 4px rgba(34,62,66,.75);
   width: 50%;
 }
@@ -53,11 +56,5 @@ a.btn {
   text-decoration: none;
   text-transform: uppercase;
   -webkit-transition: box-shadow 1s ease;
-	transition: box-shadow 1s ease;
-}
-
-a.btn:hover {
-	box-shadow: 0px 4px 4px rgba(34,62,66,.5);
-	-webkit-transition: box-shadow 1s ease;
 	transition: box-shadow 1s ease;
 }
