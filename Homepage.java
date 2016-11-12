@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 
 
 public class Homepage extends Applet implements ActionListener{
-
 	Button randomQuestion;
 	Button listQuestion;
 	Button about;
@@ -21,6 +20,10 @@ public class Homepage extends Applet implements ActionListener{
 	String[] stringArray;
 	
     public void init() {
+    	//Set title
+    	Frame title = (Frame)this.getParent().getParent();
+        title.setTitle("Boost");
+    	
     	//Set window size
     	this.setSize(new Dimension(800,800));
     	
@@ -31,15 +34,7 @@ public class Homepage extends Applet implements ActionListener{
         
         //Initialize text box (empty)
         text = new JTextArea("", 40, 40);
-        
-        //Initialize string array
-        stringArray = new String[3];
-        stringArray[0] = "a";
-        stringArray[1] = "b";
-        stringArray[2] = "c";
-        	
-        
-        
+      
         // Add buttons to the home screen
         add(randomQuestion);
         add(listQuestion);
@@ -55,10 +50,9 @@ public class Homepage extends Applet implements ActionListener{
     
     //Check if button was clicked, react
     public void actionPerformed(ActionEvent e) {
- 
-		
-		 
-		 if (e.getSource() == listQuestion)
+    	text.setText(null);
+    	
+		if (e.getSource() == listQuestion)
 			System.out.println("listQuestion was pressed");
 		else if (e.getSource() == about)
 			text.append("    Stereotype threat occurs when a person confirms a \n"
@@ -82,16 +76,5 @@ public class Homepage extends Applet implements ActionListener{
 		 	
 	}
     
-    public void repaint(Graphics g){
-        
-        /*
-         * Use
-         * void drawString(String str, int x, int y)
-         * method to print the string at specified location x and y.
-         */
-        g.drawString("about", 50, 50);
-}
-    
     
 }
-
